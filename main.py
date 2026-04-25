@@ -5,11 +5,21 @@ import random
 pygame.init()
 pygame.font.init()
 
+BASE_DIR = os.path.dirname(__file__) 
+
 WIDTH, HEIGHT = 1000, 800
 WIN = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Dodge the Bullet")
 
-BG = pygame.transform.scale(pygame.image.load("bg.jpeg"), (WIDTH, HEIGHT))
+try:
+    bg_path = os.path.join(BASE_DIR, "bg.jpeg")
+    BG = pygame.image.load(bg_path).convert()
+    BG = pygame.transform.scale(BG, (WIDTH, HEIGHT))
+except:
+    print("Background missing → using fallback")
+    BG = pygame.Surface((WIDTH, HEIGHT))
+    BG.fill((20, 20, 20))
+
 
 PLAYER_WIDTH = 40
 PLAYER_HEIGHT = 60
